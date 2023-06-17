@@ -1,10 +1,9 @@
 
-using UnityEngine;
 using UnityEngine.Networking;
 
-public class ImageCountChecker : MonoBehaviour
+public class ImageCountChecker
 {
-    private static int GetImagesCount(string url)
+    public static int GetImagesCount(string url)
     {
         var www = UnityWebRequest.Get(url);
         var isError = false;

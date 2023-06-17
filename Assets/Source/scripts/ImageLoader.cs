@@ -1,29 +1,19 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using Button = UnityEngine.UIElements.Button;
 
 
 public class ImageLoader : MonoBehaviour
 {
     [SerializeField] private Image _image;
-    private Button _button;
-    private string _imageUrl;
-
-    private void Start()
+    public void LoadImage(string imageUrl)
     {
-        _imageUrl = "http://data.ikppbb.com/test-task-unity-data/pics/33.jpg";
-        LoadImage();
+        StartCoroutine(LoadImageCoroutine(imageUrl));
     }
     
-    private void LoadImage()
+    private IEnumerator LoadImageCoroutine(string imageUrl)
     {
-        StartCoroutine(LoadImageCoroutine());
-    }
-    
-    private IEnumerator LoadImageCoroutine()
-    {
-        var www = new WWW(_imageUrl);
+        var www = new WWW(imageUrl);
         yield return www;
         var texture = www.texture;
         var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
