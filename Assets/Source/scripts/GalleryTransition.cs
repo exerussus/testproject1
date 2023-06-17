@@ -1,13 +1,11 @@
 
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class GalleryTransition : MonoBehaviour
 {
-    private float _timer = 0f;
-
     public void Run()
     {
-        
+        SceneManager.LoadScene(SceneConstant.Load);
     }
 }
