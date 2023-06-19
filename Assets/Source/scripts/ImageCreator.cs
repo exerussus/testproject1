@@ -1,18 +1,21 @@
 
+using System;
 using UnityEngine;
 
 public class ImageCreator : MonoBehaviour
 {
     [SerializeField] private string _imagesUrl;
     [SerializeField] private GameObject _conteiner;
-    [SerializeField] private RectTransform _conteinerRectTransform;
     [SerializeField] private GameObject _imagePrefub;
 
+    public Action OnCreated;
+    
     private void Start()
     {
-        Create();
+         Create();
     }
 
+    [Obsolete("Obsolete")]
     private void Create()
     {
         var imagesCount = 66; //ImageCountChecker.GetImagesCount(_imagesUrl);
@@ -22,8 +25,7 @@ public class ImageCreator : MonoBehaviour
             GameObject newImageButton = Instantiate(_imagePrefub, _conteiner.transform);
             var imageLoader = newImageButton.GetComponent<ImageLoader>();
             imageLoader.LoadImage(imageUrl);
-            _conteinerRectTransform.sizeDelta = new Vector2(_conteinerRectTransform.sizeDelta.x, 
-                _conteinerRectTransform.rect.height + 203);
         }
+        OnCreated?.Invoke();
     }
 }

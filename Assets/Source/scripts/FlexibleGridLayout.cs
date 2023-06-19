@@ -1,10 +1,13 @@
 
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class FlexibleGridLayout : LayoutGroup
 {
+
+    public Action OnCalculated;
         /// <summary>
         /// Which corner is the starting corner for the grid.
         /// </summary>
@@ -101,7 +104,9 @@ public class FlexibleGridLayout : LayoutGroup
             }
             set => SetProperty(ref m_CellSize, value);
         }
-        
+
+        public int ChildrenCount => Mathf.CeilToInt(rectChildren.Count);
+
         [SerializeField] protected Vector2 m_Spacing = Vector2.zero;
 
         /// <summary>
@@ -125,7 +130,7 @@ public class FlexibleGridLayout : LayoutGroup
         /// How many cells there should be along the constrained axis.
         /// </summary>
         public int constraintCount { get { return m_ConstraintCount; } set { SetProperty(ref m_ConstraintCount, Mathf.Max(1, value)); } }
-
+        
         protected FlexibleGridLayout()
         {}
 
@@ -168,6 +173,9 @@ public class FlexibleGridLayout : LayoutGroup
                 -1, 0);
         }
 
+        private int _columnCount;
+        public int ColumnCount => _columnCount;
+        
         /// <summary>
         /// Called by the layout system to calculate the vertical layout size.
         /// Also see ILayoutElement
@@ -189,9 +197,11 @@ public class FlexibleGridLayout : LayoutGroup
                 int cellCountX = Mathf.Max(1, Mathf.FloorToInt((width - padding.horizontal + spacing.x + 0.001f) / (cellSize.x + spacing.x)));
                 minRows = Mathf.CeilToInt(rectChildren.Count / (float)cellCountX);
             }
+            if (minRows != 0) _columnCount =  ChildrenCount / minRows;
 
             float minSpace = padding.vertical + (cellSize.y + spacing.y) * minRows - spacing.y;
             SetLayoutInputForAxis(minSpace, minSpace, -1, 1);
+            OnCalculated?.Invoke();
         }
 
         /// <summary>

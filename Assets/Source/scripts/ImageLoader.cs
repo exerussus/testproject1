@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,11 +7,13 @@ using UnityEngine.UI;
 public class ImageLoader : MonoBehaviour
 {
     [SerializeField] private Image _image;
+    [Obsolete("Obsolete")]
     public void LoadImage(string imageUrl)
     {
         StartCoroutine(LoadImageCoroutine(imageUrl));
     }
     
+    [Obsolete("Obsolete")]
     private IEnumerator LoadImageCoroutine(string imageUrl)
     {
         var www = new WWW(imageUrl);

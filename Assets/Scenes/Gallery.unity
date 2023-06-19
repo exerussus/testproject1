@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 506916520}
   - component: {fileID: 506916522}
   - component: {fileID: 506916523}
+  - component: {fileID: 506916524}
   m_Layer: 5
   m_Name: Container
   m_TagString: Untagged
@@ -361,7 +362,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _imagesUrl: http://data.ikppbb.com/test-task-unity-data/pics/
   _conteiner: {fileID: 506916519}
-  _conteinerRectTransform: {fileID: 506916520}
   _imagePrefub: {fileID: 8283836625997124200, guid: a6a1bd0ec83544c47bb328f03e0b1c06, type: 3}
 --- !u!114 &506916523
 MonoBehaviour:
@@ -389,6 +389,20 @@ MonoBehaviour:
   m_Spacing: {x: 55, y: 55}
   m_Constraint: 1
   m_ConstraintCount: 2
+--- !u!114 &506916524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506916519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49cc8291281426645b1d52408a2232d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _conteinerRectTransform: {fileID: 506916520}
+  _flexGridLayout: {fileID: 506916523}
 --- !u!1 &660046868
 GameObject:
   m_ObjectHideFlags: 0
