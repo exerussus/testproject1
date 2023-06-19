@@ -83,12 +83,25 @@ public class FlexibleGridLayout : LayoutGroup
         public Axis startAxis { get { return m_StartAxis; } set { SetProperty(ref m_StartAxis, value); } }
 
         [SerializeField] protected Vector2 m_CellSize = new Vector2(100, 100);
+        [SerializeField] protected Vector2 m_StandardDisplayScrollSize = new Vector2(900, 1800);
+        [SerializeField] protected RectTransform m_ScrollAreaRectTransform;
 
         /// <summary>
         /// The size to use for each cell in the grid.
         /// </summary>
-        public Vector2 cellSize { get { return m_CellSize; } set { SetProperty(ref m_CellSize, value); } }
-
+        public Vector2 cellSize {
+            get
+            {
+                var rect = m_ScrollAreaRectTransform.rect;
+                var x = m_CellSize.x / m_StandardDisplayScrollSize.x * rect.width;
+                var y = m_CellSize.y / m_StandardDisplayScrollSize.y * rect.height;
+                if (x > y) x = y;
+                else y = x;
+                return new Vector2(x, y);
+            }
+            set => SetProperty(ref m_CellSize, value);
+        }
+        
         [SerializeField] protected Vector2 m_Spacing = Vector2.zero;
 
         /// <summary>
