@@ -1,5 +1,4 @@
 
-using System;
 using UnityEngine;
 
 public class ContainerSizeChanger : MonoBehaviour
@@ -16,9 +15,9 @@ public class ContainerSizeChanger : MonoBehaviour
         _flexGridLayout.OnCalculated -= SizeRecalculate;
     }
 
-    private void SizeRecalculate()
+    private void SizeRecalculate(float maxSize)
     {
-        if (true) _conteinerRectTransform.sizeDelta = new Vector2(_conteinerRectTransform.sizeDelta.x,
-            _flexGridLayout.cellSize.y * _flexGridLayout.ChildrenCount / _flexGridLayout.ColumnCount);
+        _conteinerRectTransform.sizeDelta = new Vector2(
+            _conteinerRectTransform.sizeDelta.x, maxSize - _flexGridLayout.ScrollAreaHeight);
     }
 }

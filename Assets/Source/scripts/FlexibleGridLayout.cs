@@ -2,12 +2,11 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class FlexibleGridLayout : LayoutGroup
 {
 
-    public Action OnCalculated;
+    public Action<float> OnCalculated;
         /// <summary>
         /// Which corner is the starting corner for the grid.
         /// </summary>
@@ -105,6 +104,7 @@ public class FlexibleGridLayout : LayoutGroup
             set => SetProperty(ref m_CellSize, value);
         }
 
+        public float ScrollAreaHeight => m_ScrollAreaRectTransform.rect.height;
         public int ChildrenCount => Mathf.CeilToInt(rectChildren.Count);
 
         [SerializeField] protected Vector2 m_Spacing = Vector2.zero;
@@ -201,7 +201,6 @@ public class FlexibleGridLayout : LayoutGroup
 
             float minSpace = padding.vertical + (cellSize.y + spacing.y) * minRows - spacing.y;
             SetLayoutInputForAxis(minSpace, minSpace, -1, 1);
-            OnCalculated?.Invoke();
         }
 
         /// <summary>
@@ -307,7 +306,7 @@ public class FlexibleGridLayout : LayoutGroup
                 GetStartOffset(0, requiredSpace.x),
                 GetStartOffset(1, requiredSpace.y)
             );
-
+            float lastPosition = 1;
             for (int i = 0; i < rectChildrenCount; i++)
             {
                 int positionX;
@@ -327,9 +326,11 @@ public class FlexibleGridLayout : LayoutGroup
                     positionX = actualCellCountX - 1 - positionX;
                 if (cornerY == 1)
                     positionY = actualCellCountY - 1 - positionY;
-
+                
                 SetChildAlongAxis(rectChildren[i], 0, startOffset.x + (cellSize[0] + spacing[0]) * positionX, cellSize[0]);
                 SetChildAlongAxis(rectChildren[i], 1, startOffset.y + (cellSize[1] + spacing[1]) * positionY, cellSize[1]);
+                lastPosition = startOffset.y + (cellSize[1] + spacing[1]) * positionY + cellSize[1];
             }
+            OnCalculated?.Invoke(lastPosition);
         }
     }
