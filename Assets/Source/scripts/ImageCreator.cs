@@ -24,7 +24,7 @@ public class ImageCreator : MonoBehaviour
             var imageUrl = _imagesUrl + i + ".jpg";
             GameObject newImageButton = Instantiate(_imagePrefub, _conteiner.transform);
             var imageLoader = newImageButton.GetComponent<ImageLoader>();
-            imageLoader.LoadImage(imageUrl);
+            imageLoader.imageUrl = imageUrl;
         }
         OnCreated?.Invoke();
     }
