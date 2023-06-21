@@ -14,11 +14,10 @@ public class ImageCreator : MonoBehaviour
     {
          Create();
     }
-
-    [Obsolete("Obsolete")]
+    
     private void Create()
     {
-        var imagesCount = 66; //ImageCountChecker.GetImagesCount(_imagesUrl);
+        var imagesCount = ImageCountChecker.GetJpgCount(_imagesUrl);
         for (int i = 1; i <= imagesCount; i++)
         {
             var imageUrl = _imagesUrl + i + ".jpg";

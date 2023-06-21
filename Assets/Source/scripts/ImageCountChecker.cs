@@ -1,21 +1,22 @@
 
-using UnityEngine.Networking;
+using System.Net;
+using System.Text.RegularExpressions;
+using UnityEngine;
 
 public class ImageCountChecker
 {
-    public static int GetImagesCount(string url)
+    public static int GetJpgCount(string url)
     {
-        var www = UnityWebRequest.Get(url);
-        var isError = false;
-        var imageCount = 0;
-        while (!isError)
+        int count = 0;
+        using (WebClient client = new WebClient())
         {
-            if (www.result is UnityWebRequest.Result.ConnectionError or UnityWebRequest.Result.ProtocolError)
-            {
-                break;
-            }
-            imageCount += 1;
+            string htmlCode = client.DownloadString(url);
+            Regex regex = new Regex(@"<a[^>]*?href=(['""])(.*)/test-task-unity-data/pics/[\w]+\.jpg\1");
+            MatchCollection matches = regex.Matches(htmlCode);
+
+            count = matches.Count; 
         }
-        return imageCount;
+        Debug.Log(count);
+        return count;
     }
 }
