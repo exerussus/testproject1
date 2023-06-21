@@ -33,7 +33,6 @@ public class ImageLoader : MonoBehaviour
             var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
             _image.sprite = sprite;
             IsLoaded = true;
-            LoadHandler.Unload();
             OnLoaded?.Invoke();
         }
     }

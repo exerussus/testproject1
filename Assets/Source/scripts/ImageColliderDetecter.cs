@@ -1,14 +1,12 @@
 
+using System;
 using UnityEngine;
 
 public class ImageColliderDetecter : MonoBehaviour
 {
+    public Action<Collider2D> OnDetected;
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (LoadHandler.CanBeLoaded)
-        {
-            var imageLoader = other.GetComponent<ImageLoader>();
-            LoadHandler.Load(imageLoader);
-        }
+            OnDetected?.Invoke(other);
     }
 }

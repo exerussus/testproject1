@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 770583720271306346}
   - component: {fileID: 1825948664457181995}
   - component: {fileID: 71594661388812021}
-  - component: {fileID: 8376903950671695578}
+  - component: {fileID: 5823788317564299860}
   m_Layer: 5
   m_Name: ImageBtn
   m_TagString: ImageButton
@@ -291,17 +291,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8376903950671695578
+--- !u!114 &5823788317564299860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8283836625997124200}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cf294853d2f49f46a46048b103705bf, type: 3}
+  m_Script: {fileID: 11500000, guid: d2429e387fd64ed49b9f9865ffab5c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider2D: {fileID: 1825948664457181995}
+  _loadHandler: {fileID: 0}
   _imageLoader: {fileID: 770583720271306346}
+  _imageColliderDetecter: {fileID: 0}

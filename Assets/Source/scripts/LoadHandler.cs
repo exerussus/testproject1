@@ -4,37 +4,18 @@ using UnityEngine;
 
 public class LoadHandler : MonoBehaviour
 {
-    private static LoadHandler instance;
+    private int _actuallyLoad = 0;
+    private int _maxLoad = 1;
     
-    private static int _actuallyLoad;
-    private static int _maxLoad = 1;
-    
-    private static List<ImageLoader> _imageLoaderList = new List<ImageLoader>();
-    public static bool CanBeLoaded => _actuallyLoad < _maxLoad;
+    private List<ImageLoader> _imageLoaderList = new List<ImageLoader>();
+    public bool CanBeLoaded => _actuallyLoad < _maxLoad;
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void Start()
-    {
-        _actuallyLoad = 0;
-    }
-
-    public static void Load(ImageLoader imageLoader)
+    public void Load(ImageLoader imageLoader)
     {
         _imageLoaderList.Add(imageLoader);
     }
 
-    public static void Unload()
+    public void Unload()
     {
         _actuallyLoad = _actuallyLoad - 1 >= 0 ? _actuallyLoad -= 1 : 0;
     }
