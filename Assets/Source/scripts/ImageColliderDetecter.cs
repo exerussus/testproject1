@@ -7,9 +7,8 @@ public class ImageColliderDetecter : MonoBehaviour
     {
         if (LoadHandler.CanBeLoaded)
         {
-            LoadHandler.Load();
             var imageLoader = other.GetComponent<ImageLoader>();
-            imageLoader.LoadImage();
+            LoadHandler.Load(imageLoader);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 
@@ -11,7 +12,6 @@ public class ImageLoader : MonoBehaviour
     public bool IsLoaded { get; private set; } = false;
     public Action OnLoaded;
     
-    [Obsolete("Obsolete")]
     public void LoadImage()
     {
         if (!IsLoaded && imageUrl != null)
@@ -20,16 +20,21 @@ public class ImageLoader : MonoBehaviour
         }
     }
     
-    [Obsolete("Obsolete")]
+
     private IEnumerator LoadImageCoroutine()
     {
-        var www = new WWW(imageUrl);
-        yield return www;
-        var texture = www.texture;
-        var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-        _image.sprite = sprite;
-        IsLoaded = true;
-        LoadHandler.Unload();
-        OnLoaded?.Invoke();
+        var www = UnityWebRequestTexture.GetTexture(imageUrl);
+        yield return www.SendWebRequest();
+        
+        if (www.result != UnityWebRequest.Result.ConnectionError && 
+            www.result != UnityWebRequest.Result.ProtocolError)
+        {
+            var texture = DownloadHandlerTexture.GetContent(www);
+            var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+            _image.sprite = sprite;
+            IsLoaded = true;
+            LoadHandler.Unload();
+            OnLoaded?.Invoke();
+        }
     }
 }
