@@ -407,6 +407,8 @@ MonoBehaviour:
   _imagesUrl: http://data.ikppbb.com/test-task-unity-data/pics/
   _conteiner: {fileID: 506916519}
   _imagePrefub: {fileID: 8283836625997124200, guid: a6a1bd0ec83544c47bb328f03e0b1c06, type: 3}
+  _loadHandler: {fileID: 195164081}
+  _imageColliderDetecter: {fileID: 879705532}
 --- !u!114 &506916523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,7 +916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc641d7f8a9a5dc47bb309477d5d4f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScreenOrientation: 1
+  ScreenOrientation: 2
 --- !u!4 &1878497081
 Transform:
   m_ObjectHideFlags: 0

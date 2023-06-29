@@ -1,5 +1,7 @@
 
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OrientationSetter : MonoBehaviour
 {
@@ -14,7 +16,17 @@ public class OrientationSetter : MonoBehaviour
 
     public Orientation ScreenOrientation;
 
-    private void Start()
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += Rotate;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= Rotate;
+    }
+
+    private void Rotate(Scene scene, LoadSceneMode mode)
     {
         switch (ScreenOrientation)
         {
@@ -26,10 +38,7 @@ public class OrientationSetter : MonoBehaviour
                 break;
             
             case Orientation.Portrait:
-                // Force screen to orient right, then switch to Auto
                 Screen.orientation = UnityEngine.ScreenOrientation.Portrait;
-                Screen.orientation = UnityEngine.ScreenOrientation.AutoRotation;
-                
                 Screen.autorotateToPortrait = Screen.autorotateToPortraitUpsideDown = true;
                 Screen.autorotateToLandscapeLeft = Screen.autorotateToLandscapeRight = false;
                 break;
@@ -39,7 +48,6 @@ public class OrientationSetter : MonoBehaviour
                 break;
             
             case Orientation.Landscape:
-                // Force screen to orient right, then switch to Auto
                 Screen.orientation = UnityEngine.ScreenOrientation.LandscapeRight;
                 Screen.orientation = UnityEngine.ScreenOrientation.AutoRotation;
                 
@@ -51,7 +59,5 @@ public class OrientationSetter : MonoBehaviour
                 Screen.orientation = UnityEngine.ScreenOrientation.LandscapeLeft;
                 break;
         }
-
-        Destroy(gameObject);
     }
 }
